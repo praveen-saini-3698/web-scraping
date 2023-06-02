@@ -1,0 +1,96 @@
+<div class="route-scrap">
+    <a href="/scrap">See ALL Scraps</a>
+</div>
+
+<div class="home-component">
+    <form class="scrap-form">
+        <div class="input-field">
+            <label for="url">Enter the url to apply scrapping......</label> <br />
+            <input id="url" name="url" [(ngModel)]="url" type="url" required>
+        </div>
+        <div class="submit">
+            <button (click)="onSubmit()" type="submit">Scrap</button>
+        </div>
+    </form>
+</div>
+
+<div class="home-data-component">
+    <form>
+        <div class="form-container">
+            <div class="form-column web-details">
+                <div class="input-field">
+                    <label for="brand-site">Brand Website</label> <br />
+                    <input id="brand-site" value="{{url}}" type="text" required>
+                </div>
+                <div class="input-field">
+                    <label for="brand-site">Brand Name</label> <br />
+                    <input id="brand-site" value="{{responseData.title}}" #titleEvent
+                        (change)="setValue('title', titleEvent.value)" type="text" required>
+                </div>
+                <div class="logo-view">
+                    <label for="logo">Brand Logo</label> <br />
+                    <img width="10%" height="auto" src="{{responseData.logo}}" />
+                </div>
+                <div class="container">
+                    <div class="fileUploadInput">
+                        <label>✨ Upload File</label>
+                        <input type="file" (change)="onFileSelected($event)" accept=".jpeg,.jpg,.png,.webp,.svg,.gif" />
+                        <button>+</button>
+                    </div>
+                    <button (click)="onUpload()">Upload Logo</button>
+                </div>
+            </div>
+
+            <span class="divider"></span>
+
+            <div class="form-column">
+
+                <div class="color-chooser" *ngIf="responseData.colors">
+                    <div class="color-picker" *ngFor="let color of responseData.colors; let i = index;">
+                        <input type="color" #colorInput value="{{generateColor(color)}}"
+                            (input)="onColorChoose(colorInput.value, i)"> <br />
+                        <label>{{generateColor(color)}}</label>
+                    </div>
+                </div>
+
+                <div class="color-picker">
+                    <button (click)="pushColorProp('#fffff')" style="width:10%"><b>+</b></button>
+                </div>
+
+                <div class="select-field" *ngIf="responseData.typography">
+                    <label for="brand-site">Typography</label> <br />
+                    <div class="select-option">
+                        <div class="select">
+                            <select name="typography" id="typography">
+                                <option value="" disabled>Select</option>
+                                <option *ngFor="let typo of responseData.typography" value="{{typo}}">
+                                    {{typo}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <span class="divider"></span>
+
+            <div class="form-column">
+                <div class="text-field">
+                    <label for="brand-site">Brand Description</label><br />
+                    <textarea name="brand-description" #aboutEvent value="{{responseData.about}}" id="brand-description"
+                        cols="30" (change)="setValue('about', aboutEvent.value)" rows="10" required>
+                    </textarea>
+                </div>
+
+                <div class="text-field">
+                    <label for="brand-site">Keywords</label> <br />
+                    <textarea name="brand-keywords" #keywordsEvent value="{{responseData.keywords}}" id="brand-keywords"
+                        cols="30" (change)="setValue('keywords', keywordsEvent.value)" rows="10" required></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="final-submit">
+            <button (click)="finalSubmit()">Save</button>
+        </div>
+    </form>
+</div>

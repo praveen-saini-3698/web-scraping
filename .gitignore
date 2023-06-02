@@ -1,0 +1,5 @@
+web-scraping-ui/node_modules
+web-scraping-ui/package-lock.json
+web-scraping-backend/node_modules
+web-scraping-backend/.env
+web-scraping-backend/package-lock.json
